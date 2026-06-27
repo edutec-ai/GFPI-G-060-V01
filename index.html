@@ -905,7 +905,8 @@
         <!-- ============================================================ -->
         <div id="cascada-view">
             <button class="btn-back" onclick="mostrarLanding()">
-                <i class="fas fa-arrow-left"></i> Volver al menú            </button>
+                <i class="fas fa-arrow-left"></i> Volver al menú
+            </button>
 
             <!-- TABS -->
             <div class="tabs" role="tablist">
@@ -1574,7 +1575,7 @@
                 tabs.forEach(btn => btn.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
                 const activeBtn = cascadaView.querySelector(`.tab-btn[data-tab="${tabId}"]`);
-                const activeContent = cascadaView.getElementById(tabId);
+                const activeContent = document.getElementById(tabId); // ✅ CORREGIDO
                 if (activeBtn) activeBtn.classList.add('active');
                 if (activeContent) activeContent.classList.add('active');
             }
@@ -1609,7 +1610,7 @@
             });
 
             // ============================================================
-            // 2. DESCARGA DE ARCHIVOS
+            // 2. DESCARGA DE ARCHIVOS (CORREGIDO: usa window.open)
             // ============================================================
             window.descargar = function(tipo) {
                 const rutas = {
@@ -1620,13 +1621,8 @@
                 };
                 const ruta = rutas[tipo];
                 if (ruta) {
-                    const link = document.createElement('a');
-                    link.href = ruta;
-                    link.download = ruta.split('/').pop();
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    console.log('✅ Descargando:', ruta);
+                    window.open(ruta, '_blank');
+                    console.log('✅ Abriendo:', ruta);
                 } else {
                     alert('⚠️ Archivo no encontrado. Verifica que el archivo exista en la carpeta doc/');
                 }

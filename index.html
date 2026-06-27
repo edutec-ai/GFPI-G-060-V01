@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SENA · Desarrollo Curricular · Recursos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ---------- RESET & BASE ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #f0f4f8;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        .app {
+            max-width: 1360px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px -12px rgba(0, 20, 30, 0.25);
+            overflow: hidden;
+            padding: 1.8rem 2rem 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        /* ---------- HEADER ---------- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 2px solid #e9edf2;
+            padding-bottom: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .header-left .logo-sena {
+            background: #2e7d32;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.5rem;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            letter-spacing: 0.5px;
+        }
+        .header-left h1 {
+            font-weight: 600;
+            font-size: 1.6rem;
+            color: #0b2e4b;
+        }
+        .header-left h1 small {
+            font-weight: 400;
+            font-size: 1rem;
+            color: #475569;
+            display: block;
+            margin-top: 0.1rem;
+        }
+        .badge-version {
+            background: #dbeafe;
+            color: #1e4a7a;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #b8d3f0;
+        }
+
+        /* ============================================================ */
+        /* LANDING PAGE (MENU PRINCIPAL) */
+        /* ============================================================ */
+        #landing {
+            display: block;
+        }
+        #landing.hidden {
+            display: none;
+        }
+
+        .landing-subtitle {
+            text-align: center;
+            color: #475569;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        .landing-subtitle strong {
+            color: #0b2e4b;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0 1rem;
+        }
+        .card-download {
+            background: #f9fcff;
+            border-radius: 20px;
+            padding: 1.8rem 1.2rem 1.5rem;
+            border: 1px solid #e2eaf2;
+            text-align: center;
+            transition: 0.25s ease;
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card-download:hover {
+            border-color: #2e7d32;
+            box-shadow: 0 8px 20px rgba(0, 40, 20, 0.08);
+            transform: translateY(-4px);
+        }
+        .card-download .icon {
+            font-size: 2.8rem;
+            color: #1f6a3b;
+        }
+        .card-download .icon.pdf {
+            color: #c62828;
+        }
+        .card-download .icon.ppt {
+            color: #b45f1b;
+        }
+        .card-download .icon.podcast {
+            color: #1f4a7a;
+        }
+        .card-download .icon.cascada {
+            color: #0b7a5e;
+            font-size: 3.2rem;
+        }
+        .card-download h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0b2e4b;
+        }
+        .card-download p {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin: 0.2rem 0 0.4rem;
+        }
+        .card-download .btn {
+            display: inline-block;
+            background: #e6eff8;
+            color: #0b2e4b;
+            padding: 0.5rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            margin-top: 0.3rem;
+        }
+        .card-download .btn:hover {
+            background: #2e7d32;
+            color: #fff;
+        }
+        .card-download .btn.primary {
+            background: #2e7d32;
+            color: #fff;
+        }
+        .card-download .btn.primary:hover {
+            background: #1f5a25;
+        }
+
+        /* Tarjeta CASCADA (destacada) */
+        .card-download.cascada-card {
+            background: #eaf5ed;
+            border: 2px solid #2e7d32;
+            grid-column: span 1;
+        }
+        @media (min-width: 900px) {
+            .card-download.cascada-card {
+                grid-column: span 2;
+            }
+        }
+
+        /* ============================================================ */
+        /* CASCADA (contenido principal) */
+        /* ============================================================ */
+        #cascada-view {
+            display: none;
+        }
+        #cascada-view.active {
+            display: block;
+        }
+
+        /* Botón volver */
+        .btn-back {
+            background: transparent;
+            border: none;
+            color: #1f6a3b;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .btn-back:hover {
+            background: #eaf5ed;
+        }
+
+        /* ---------- TABS ---------- */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.2rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1.4rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #475569;
+            border-radius: 30px 30px 0 0;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tab-btn i {
+            font-size: 1.1rem;
+        }
+        .tab-btn:hover {
+            background: #f1f5f9;
+            color: #0b2e4b;
+        }
+        .tab-btn.active {
+            background: #e6f0fa;
+            color: #0b4b7a;
+            border-bottom: 4px solid #2e7d32;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeUp 0.25s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0.6;
+                transform: translateY(6px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ---------- DASHBOARD CARDS ---------- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 1.8rem 0 1rem;
+        }
+        .card {
+            background: #f9fcff;
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem 1.5rem;
+            border: 1px solid #e2eaf2;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.02);
+            transition: 0.2s;
+        }
+        .card:hover {
+            border-color: #b8d0e8;
+            box-shadow: 0 8px 18px rgba(0, 20, 40, 0.06);
+        }
+        .card .card-icon {
+            font-size: 2rem;
+            color: #1f6a3b;
+            margin-bottom: 0.3rem;
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: #0b2e4b;
+        }
+        .card .badge {
+            display: inline-block;
+            background: #d1e0f0;
+            color: #12406b;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            margin-top: 0.3rem;
+        }
+        .card .badge.red {
+            background: #fde7e7;
+            color: #a51d1d;
+        }
+        .card .badge.green {
+            background: #e3f5e3;
+            color: #1f6a3b;
+        }
+        .card .badge.blue {
+            background: #dbeafe;
+            color: #1a4a7a;
+        }
+        .card .badge.orange {
+            background: #fef0dc;
+            color: #b45f1b;
+        }
+
+        /* ---------- COMPONENTE DETALLE ---------- */
+        .component-block {
+            background: #f9fcff;
+            border-radius: 24px;
+            padding: 1.8rem 2rem;
+            border: 1px solid #e2eaf2;
+            margin-bottom: 2rem;
+        }
+        .component-block h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #0b2e4b;
+            margin-bottom: 0.6rem;
+        }
+        .component-block h2 i {
+            color: #1f6a3b;
+            font-size: 1.8rem;
+        }
+        .component-block .subtitle {
+            color: #475569;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #2e7d32;
+            padding-left: 1rem;
+            background: #f1f6fc;
+            border-radius: 0 12px 12px 0;
+            padding: 0.6rem 1rem;
+        }
+        .cmp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+        }
+        @media (max-width: 820px) {
+            .cmp-grid {
+                grid-template-columns: 1fr;
+            }
+            .app {
+                padding: 1rem;
+            }
+            .tabs .tab-btn {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.85rem;
+            }
+        }
+        .cmp-col {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 1rem 1.2rem 1.5rem;
+            border: 1px solid #e2eaf2;
+        }
+        .cmp-col h4 {
+            font-weight: 600;
+            color: #1e4a7a;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px dashed #d6e2ee;
+            padding-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .cmp-col ul,
+        .cmp-col p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #1e293b;
+            margin-left: 0.2rem;
+        }
+        .cmp-col ul {
+            list-style: none;
+            padding-left: 0.3rem;
+        }
+        .cmp-col ul li {
+            padding: 0.2rem 0 0.2rem 1.6rem;
+            position: relative;
+        }
+        .cmp-col ul li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #1f6a3b;
+            font-weight: 600;
+        }
+        .table-compare {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin: 0.8rem 0;
+        }
+        .table-compare th {
+            background: #e6eff8;
+            text-align: left;
+            padding: 0.5rem 0.8rem;
+            font-weight: 600;
+            color: #0b2e4b;
+        }
+        .table-compare td {
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid #e9edf2;
+            vertical-align: top;
+        }
+        .table-compare .old {
+            background: #fcf4f4;
+        }
+        .table-compare .new {
+            background: #f2faf5;
+        }
+        .chip {
+            background: #eef4fa;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #1e4a7a;
+            display: inline-block;
+            margin: 0.2rem 0.2rem 0 0;
+        }
+        .chip.green {
+            background: #e0f0e0;
+            color: #1f6a3b;
+        }
+        .chip.blue {
+            background: #dbeafe;
+            color: #1a4a7a;
+        }
+        .chip.orange {
+            background: #fef0dc;
+            color: #b45f1b;
+        }
+        .chip.red {
+            background: #fde7e7;
+            color: #a51d1d;
+        }
+        .highlight-box {
+            background: #f0f7fe;
+            border-left: 4px solid #1f6a3b;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+        }
+        .flow-svg {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1.2rem 0 0.8rem;
+        }
+        .flow-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: #f2f8fe;
+            padding: 0.6rem 1.5rem;
+            border-radius: 60px;
+            border: 1px solid #d6e2ee;
+            width: fit-content;
+            margin: 0.2rem 0;
+            font-weight: 500;
+        }
+        .flow-item i {
+            color: #1f6a3b;
+            width: 1.6rem;
+        }
+        .arrow-down {
+            font-size: 1.6rem;
+            color: #2e7d32;
+            opacity: 0.7;
+        }
+        .footer-note {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.8rem;
+            border-top: 1px solid #e2eaf2;
+            padding-top: 1.2rem;
+            margin-top: 1.8rem;
+        }
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="app" id="app">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div class="header-left">
+                <span class="logo-sena"><i class="fas fa-graduation-cap" style="margin-right:6px;"></i>SENA</span>
+                <div>
+                    <h1>Desarrollo Curricular <small>Guía Junio 2026 · Recursos y Cascada</small></h1>
+                </div>
+            </div>
+            <div class="badge-version"><i class="fas fa-code-branch"></i> GFPI-G-060 V01</div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- LANDING PAGE -->
+        <!-- ============================================================ -->
+        <div id="landing">
+            <p class="landing-subtitle">
+                <i class="fas fa-folder-open" style="color:#1f6a3b;"></i>
+                Recursos para el desarrollo curricular · Selecciona una opción
+            </p>
+
+            <div class="cards-grid">
+                <!-- Tarjeta 1: Guía Anterior -->
+                <div class="card-download">
+                    <div class="icon pdf"><i class="fas fa-file-pdf"></i></div>
+                    <h3>Guía Anterior</h3>
+                    <p>GFPI-G-012-V1 · Versión previa</p>
+                    <button class="btn" onclick="descargar('guia-anterior')">
+                        <i class="fas fa-download"></i> Descargar
+                    </button>
+                </div>
+
+                <!-- Tarjeta 2: Nueva Guía -->
+                <div class="card-download">
+                    <div class="icon pdf"><i class="fas fa-file-pdf" style="color:#1f6a3b;"></i></div>
+                    <h3>Guía Nueva</h3>
+                    <p>GFPI-G-060 V01 · Junio 2026</p>
+                    <button class="btn" onclick="descargar('guia-nueva')">
+                        <i class="fas fa-download"></i> Descargar
+                    </button>
+                </div>
+
+                <!-- Tarjeta 3: Power Point -->
+                <div class="card-download">
+                    <div class="icon ppt"><i class="fas fa-file-powerpoint"></i></div>
+                    <h3>Presentación</h3>
+                    <p>Cascada · Componentes · Cambios</p>
+                    <button class="btn" onclick="descargar('powerpoint')">
+                        <i class="fas fa-download"></i> Descargar
+                    </button>
+                </div>
+
+                <!-- Tarjeta 4: Podcast -->
+                <div class="card-download">
+                    <div class="icon podcast"><i class="fas fa-podcast"></i></div>
+                    <h3>Podcast</h3>
+                    <p>Audio · Desarrollo Curricular</p>
+                    <button class="btn" onclick="descargar('podcast')">
+                        <i class="fas fa-download"></i> Descargar
+                    </button>
+                </div>
+
+                <!-- Tarjeta 5: CASCADA -->
+                <div class="card-download cascada-card">
+                    <div class="icon cascada"><i class="fas fa-water"></i></div>
+                    <h3>🌊 Cascada</h3>
+                    <p>Visualización interactiva · Pestañas · Dashboards</p>
+                    <button class="btn primary" onclick="mostrarCascada()">
+                        <i class="fas fa-arrow-right"></i> Acceder a la Cascada
+                    </button>
+                </div>
+            </div>
+
+            <div style="margin-top:2rem; text-align:center; font-size:0.9rem; color:#475569; background:#f2f8fe; padding:0.8rem 1.2rem; border-radius:16px;">
+                <i class="fas fa-check-circle" style="color:#1f6a3b;"></i>
+                Terminología SENA: <strong>instructor</strong> · <strong>aprendices</strong> · <strong>programa de formación</strong> · <strong>ambiente de aprendizaje</strong> · <strong>competencia</strong> · <strong>resultado de aprendizaje</strong> · <strong>orientar</strong>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- CASCADA VIEW -->
+        <!-- ============================================================ -->
+        <div id="cascada-view">
+            <button class="btn-back" onclick="mostrarLanding()">
+                <i class="fas fa-arrow-left"></i> Volver al menú
+            </button>
+
+            <!-- TABS -->
+            <div class="tabs" role="tablist">
+                <button class="tab-btn" data-tab="tab-vista"><i class="fas fa-sitemap"></i> Cascada</button>
+                <button class="tab-btn" data-tab="tab-programa"><i class="fas fa-book-open"></i> Programa</button>
+                <button class="tab-btn" data-tab="tab-proyecto"><i class="fas fa-tasks"></i> Proyecto</button>
+                <button class="tab-btn" data-tab="tab-epc"><i class="fas fa-check-double"></i> Acta EPC</button>
+                <button class="tab-btn" data-tab="tab-matriz"><i class="fas fa-table"></i> Matriz</button>
+                <button class="tab-btn" data-tab="tab-planeacion"><i class="fas fa-clipboard-list"></i> Planeación</button>
+                <button class="tab-btn" data-tab="tab-guias"><i class="fas fa-book"></i> Guías</button>
+                <button class="tab-btn" data-tab="tab-instrumentos"><i class="fas fa-clipboard-check"></i> Instrumentos</button>
+            </div>
+
+            <!-- CONTENIDO DE PESTAÑAS -->
+            <!-- TAB 1: VISTA CASCADA -->
+            <div id="tab-vista" class="tab-content">
+                <h2 style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.4rem;">
+                    <i class="fas fa-water" style="color:#1f6a3b;"></i> La Cascada del Desarrollo Curricular
+                    <span style="font-size:0.8rem; font-weight:400; color:#475569; margin-left:auto;">coherencia · trazabilidad</span>
+                </h2>
+                <p style="color:#475569; margin-bottom:1.8rem;">Cada elemento depende del anterior y define las condiciones para el siguiente. La cascada garantiza la <strong>unidad técnica institucional</strong> que la nueva guía enfatiza.</p>
+
+                <div class="flow-svg">
+                    <div class="flow-item"><i class="fas fa-book-open"></i> Programa de Formación <span class="chip">base</span></div>
+                    <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
+                    <div class="flow-item"><i class="fas fa-tasks"></i> Proyecto Formativo <span class="chip red">ÚNICO NACIONAL</span></div>
+                    <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
+                    <div class="flow-item"><i class="fas fa-check-double"></i> Acta del EPC <span class="chip blue">GFPI-F-187</span></div>
+                    <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
+                    <div class="flow-item"><i class="fas fa-table"></i> Matriz de Interpretación <span class="chip green">análisis RA</span></div>
+                    <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
+                    <div class="flow-item"><i class="fas fa-clipboard-list"></i> Planeación Pedagógica <span class="chip">GFPI-F-134</span></div>
+                    <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
+                    <div class="flow-item"><i class="fas fa-book"></i> Guías de Aprendizaje <span class="chip">3 momentos</span></div>
+                    <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
+                    <div class="flow-item"><i class="fas fa-clipboard-check"></i> Instrumentos de Evaluación <span class="chip orange">rúbricas · listas</span></div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card"><div class="card-icon"><i class="fas fa-gavel"></i></div><h3>Principios Rectores</h3><p style="font-size:0.9rem; color:#334155;">Continuidad · Pertinencia · Sistematicidad · Antecedente-consecuente</p><span class="badge">integralidad</span></div>
+                    <div class="card"><div class="card-icon"><i class="fas fa-laptop"></i></div><h3>Modalidades</h3><p style="font-size:0.9rem; color:#334155;">Presencial · Virtual · A Distancia</p><span class="badge green">Res. 1-02206/2025</span></div>
+                    <div class="card"><div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div><h3>Enfoque Diferencial</h3><p style="font-size:0.9rem; color:#334155;">CampeSENA · FEEC · Economías populares · Acuerdo 10/2016</p><span class="badge red">prioridad</span></div>
+                    <div class="card"><div class="card-icon"><i class="fas fa-clock"></i></div><h3>HTAD / HTI</h3><p style="font-size:0.9rem; color:#334155;">Presencial 80/20 · Distancia 40/60 · Virtual 20/80</p><span class="badge">48h = 1 crédito</span></div>
+                    <div class="card"><div class="card-icon"><i class="fas fa-sync-alt"></i></div><h3>Cambios Clave</h3><p style="font-size:0.9rem; color:#334155;">Proyecto Único Nacional · Continuidad obligatoria · RED integrado</p><span class="badge red">2026</span></div>
+                    <div class="card"><div class="card-icon"><i class="fas fa-users"></i></div><h3>Equipos</h3><p style="font-size:0.9rem; color:#334155;">Gestión Curricular · EPC · Ecosistema RED</p><span class="badge blue">interdisciplinario</span></div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong><i class="fas fa-check-circle" style="color:#1f6a3b;"></i> CRITERIO DE CONTINUIDAD (obligatorio):</strong> Todas las planeaciones y guías deben incluir <strong>conjuntos combinados</strong> de resultados de aprendizaje (técnicos + transversales). Nunca se planean competencias de forma aislada.
+                </div>
+                <div style="display:flex; flex-wrap:wrap; gap:0.8rem; font-size:0.9rem; color:#1e293b; background:#f2f8fe; padding:0.8rem 1.2rem; border-radius:16px;">
+                    <span><i class="fas fa-check-circle" style="color:#1f6a3b;"></i> El instructor orienta la formación en el ambiente de aprendizaje.</span>
+                    <span><i class="fas fa-check-circle" style="color:#1f6a3b;"></i> Los aprendices desarrollan competencias y logran resultados de aprendizaje.</span>
+                    <span><i class="fas fa-check-circle" style="color:#1f6a3b;"></i> Las guías de aprendizaje movilizan el saber, saber-hacer y ser.</span>
+                </div>
+            </div>
+
+            <!-- TAB 2: PROGRAMA -->
+            <div id="tab-programa" class="tab-content">
+                <div class="component-block">
+                    <h2><i class="fas fa-book-open"></i> Programa de Formación</h2>
+                    <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> La Base de la Cascada · Define competencias, RA, duración y perfil de egreso</div>
+                    <div class="cmp-grid">
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-info-circle"></i> Componentes Clave</h4>
+                            <ul>
+                                <li>Denominación y Código SOFIA</li>
+                                <li>Nivel: Ocupacional · Técnico · Tecnológico · Complementario</li>
+                                <li>Modalidad: Presencial · Virtual · A Distancia</li>
+                                <li>Duración en horas</li>
+                                <li>Competencias Específicas y Básicas (Clave y Transversales)</li>
+                                <li>Resultados de Aprendizaje (RA) con Criterios de Evaluación</li>
+                                <li>Perfil de Ingreso y Egreso</li>
+                            </ul>
+                            <div style="margin-top:0.8rem;"><span class="chip">N/A</span> <span class="chip green">punto de partida</span></div>
+                        </div>
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave (Nueva Guía)</h4>
+                            <table class="table-compare">
+                                <tr><th>Antes</th><th>Ahora</th></tr>
+                                <tr class="old"><td>Res. 2198/2019</td><td class="new"><strong>Res. 1-02206/2025</strong> y <strong>Res. 1-01041/2026</strong><br><span class="chip">clasificación y modalidades actualizadas</span></td></tr>
+                                <tr class="old"><td>Sin énfasis en economías populares</td><td class="new"><strong>Acuerdo 3/2023:</strong> Estrategia CampeSENA · FEEC</td></tr>
+                                <tr class="old"><td>Enfoque general</td><td class="new"><strong>Acuerdo 10/2016:</strong> Enfoque Pluralista y Diferencial</td></tr>
+                            </table>
+                            <div class="highlight-box" style="margin-top:0.6rem;">
+                                <i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> <strong>Impacto:</strong> Define todos los elementos posteriores de la cascada.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: PROYECTO -->
+            <div id="tab-proyecto" class="tab-content">
+                <div class="component-block">
+                    <h2><i class="fas fa-tasks"></i> Proyecto Formativo</h2>
+                    <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> El Vehículo para el Desarrollo de Competencias · Único Nacional</div>
+                    <div class="cmp-grid">
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-sitemap"></i> Estructura (SOFIA Plus)</h4>
+                            <ul>
+                                <li><strong>Planteamiento del problema:</strong> análisis de causas, herramientas STEAM, IA</li>
+                                <li><strong>Justificación:</strong> texto argumentativo sobre beneficios</li>
+                                <li><strong>Objetivo General:</strong> verbo en infinitivo + objeto + condición (medible)</li>
+                                <li><strong>Objetivos Específicos:</strong> reflejan las fases del proyecto</li>
+                                <li><strong>Alcance:</strong> beneficiarios, impactos (social, económico, ambiental, tecnológico)</li>
+                                <li><strong>Fases del Proyecto:</strong> Análisis · Planeación · Ejecución · Evaluación (mínimo 4)</li>
+                                <li><strong>Actividades por fase:</strong> 2-4 (V+O+C) asociadas a RA</li>
+                            </ul>
+                        </div>
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <table class="table-compare">
+                                <tr><th>Antes</th><th>Ahora</th></tr>
+                                <tr class="old"><td>Múltiples sub-proyectos</td><td class="new"><strong>PROYECTO FORMATIVO ÚNICO NACIONAL</strong><br>un solo proyecto por programa a nivel nacional</td></tr>
+                                <tr class="old"><td>Contextualizaciones regionales</td><td class="new"><strong>ATEMPORAL · SIN CONTEXTOS REGIONALES</strong><br>En "Empresas o instituciones" → <strong>N/A</strong></td></tr>
+                                <tr class="old"><td>Registro en SOFIA solo para programas en ejecución</td><td class="new">Programas en estado "aprobado" → <strong>Plantilla de proyecto</strong></td></tr>
+                            </table>
+                            <div class="highlight-box" style="margin-top:0.6rem;">
+                                <i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> <strong>Dependencias:</strong> Programa de Formación &nbsp;|&nbsp; <strong>Impacto:</strong> Acta EPC · Matriz · Planeación
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: ACTA EPC -->
+            <div id="tab-epc" class="tab-content">
+                <div class="component-block">
+                    <h2><i class="fas fa-check-double"></i> Acta del EPC</h2>
+                    <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> Filtro de Calidad Institucional · Revisión Técnica y Metodológica</div>
+                    <div class="cmp-grid">
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-step-forward"></i> Flujo de Revisión (6 pasos)</h4>
+                            <ol style="padding-left:1.2rem; line-height:1.8;">
+                                <li>Profesional de diseño envía PF a Coordinación Académica</li>
+                                <li>Coordinador remite <strong>GFPI-F-187</strong> + código + plantilla al EPC</li>
+                                <li>EPC revisa pedagógica y técnicamente, diligencia el formato</li>
+                                <li>Profesional de diseño consolida observaciones</li>
+                                <li>Equipo de Gestión Curricular realiza ajustes</li>
+                                <li>EPC sesiona para viabilizar mediante <strong>acta</strong></li>
+                            </ol>
+                        </div>
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <table class="table-compare">
+                                <tr><th>Antes</th><th>Ahora</th></tr>
+                                <tr class="old"><td>Revisión general</td><td class="new"><strong>Procedimiento formalizado y detallado</strong><br>pasos claros y roles definidos</td></tr>
+                                <tr class="old"><td>Formato genérico</td><td class="new"><strong>GFPI-F-187</strong> con criterios específicos para PF</td></tr>
+                                <tr class="old"><td>—</td><td class="new">Si un integrante del EPC está en el equipo de gestión, se solicita concepto a otro instructor o centro asociado</td></tr>
+                            </table>
+                            <div class="highlight-box" style="margin-top:0.6rem;">
+                                <i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> <strong>Dependencias:</strong> Proyecto Formativo &nbsp;|&nbsp; <strong>Impacto:</strong> Matriz · Planeación
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: MATRIZ -->
+            <div id="tab-matriz" class="tab-content">
+                <div class="component-block">
+                    <h2><i class="fas fa-table"></i> Matriz de Interpretación del Diseño</h2>
+                    <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> Análisis Profundo de los Resultados de Aprendizaje (RA)</div>
+                    <div class="cmp-grid">
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-brain"></i> Estructura de Análisis</h4>
+                            <ul>
+                                <li><strong>SABER (Conceptual):</strong> teorías, principios, normas, terminología</li>
+                                <li><strong>SABER HACER (Procedimental):</strong> procedimientos, técnicas, herramientas, secuencias</li>
+                                <li><strong>SER (Actitudinal):</strong> valores, principios, seguridad, trabajo colaborativo</li>
+                            </ul>
+                            <div style="margin-top:1rem; background:#f1f6fc; border-radius:12px; padding:0.8rem;">
+                                <span class="chip">RA específico</span> <span class="chip green">RA transversal</span> <span class="chip blue">integración</span>
+                            </div>
+                        </div>
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <table class="table-compare">
+                                <tr><th>Antes</th><th>Ahora</th></tr>
+                                <tr class="old"><td>Análisis de RA aislado</td><td class="new"><strong>CRITERIO DE CONTINUIDAD:</strong> todas las planeaciones deben incluir <strong>conjuntos combinados</strong> de RA (técnicos + transversales)</td></tr>
+                                <tr class="old"><td>Enfoque en dominios separados</td><td class="new"><strong>ANÁLISIS INTEGRADO:</strong> se analizan los RA en su interrelación para garantizar formación integral</td></tr>
+                            </table>
+                            <div class="highlight-box" style="margin-top:0.6rem;">
+                                <i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> <strong>Dependencias:</strong> Proyecto · Acta EPC &nbsp;|&nbsp; <strong>Impacto:</strong> Planeación Pedagógica
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 6: PLANEACIÓN -->
+            <div id="tab-planeacion" class="tab-content">
+                <div class="component-block">
+                    <h2><i class="fas fa-clipboard-list"></i> Planeación Pedagógica</h2>
+                    <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> El Corazón del Proceso Formativo · "Trazar la obra"</div>
+                    <div class="cmp-grid">
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-layer-group"></i> Variables (orden lógico)</h4>
+                            <ul>
+                                <li><strong>Resultados de Aprendizaje</strong> (variable independiente)</li>
+                                <li><strong>Actividades de Aprendizaje</strong> (V+O+C) · cognitivas, procedimentales, actitudinales</li>
+                                <li><strong>Estrategias Didácticas</strong> (estudio de casos, seminarios, juegos de rol)</li>
+                                <li><strong>Ambientes de Aprendizaje</strong> (escenarios, materiales, instructores responsables)</li>
+                                <li><strong>Evidencias de Aprendizaje</strong> (conocimiento, desempeño, producto)</li>
+                            </ul>
+                            <div style="margin-top:0.8rem;">
+                                <span class="chip">Criterio de Continuidad</span>
+                                <span class="chip green">Pertinencia</span>
+                                <span class="chip blue">Sistematicidad</span>
+                                <span class="chip orange">Antecedente-consecuente</span>
+                            </div>
+                        </div>
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <table class="table-compare">
+                                <tr><th>Antes</th><th>Ahora</th></tr>
+                                <tr class="old"><td>Sin definición clara de horas</td><td class="new"><strong>DISTRIBUCIÓN HTAD/HTI por modalidad</strong><br>Presencial 80/20 · Distancia 40/60 · Virtual 20/80<br><span class="chip">48h = 1 crédito</span></td></tr>
+                                <tr class="old"><td>—</td><td class="new"><strong>FORMATO GFPI-F-134</strong><br>2-4 actividades de aprendizaje por fase · cubrir las 3 áreas</td></tr>
+                            </table>
+                            <div class="highlight-box" style="margin-top:0.6rem;">
+                                <i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> <strong>Dependencias:</strong> Matriz de Interpretación &nbsp;|&nbsp; <strong>Impacto:</strong> Guías · Instrumentos
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 7: GUÍAS -->
+            <div id="tab-guias" class="tab-content">
+                <div class="component-block">
+                    <h2><i class="fas fa-book"></i> Guías de Aprendizaje</h2>
+                    <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> El Manual del Aprendiz · 3 Momentos del Ciclo Didáctico</div>
+                    <div class="cmp-grid">
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-hourglass-start"></i> Estructura Sistémica</h4>
+                            <ul>
+                                <li><strong>Momento 1: Reflexión Inicial</strong><br>Situación Problémica · Contextualización · Saberes previos</li>
+                                <li><strong>Momento 2: Apropiación</strong><br>Subactividades · Mapas mentales · Didácticas activas · Trabajo individual/grupal</li>
+                                <li><strong>Momento 3: Transferencia</strong><br>Aplicación en contextos reales · Talleres · Prácticas · Innovación</li>
+                            </ul>
+                        </div>
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <table class="table-compare">
+                                <tr><th>Antes</th><th>Ahora</th></tr>
+                                <tr class="old"><td>—</td><td class="new"><strong>FORMATO GFPI-F-135</strong><br>Identificación · Presentación · Actividades (3 momentos) · Evidencias</td></tr>
+                                <tr class="old"><td>Ciclo didáctico genérico</td><td class="new"><strong>CICLO DIDÁCTICO (Bustos, 1980):</strong><br>Reflexión → Contextualización → Conceptualización → Aplicación/Transferencia</td></tr>
+                            </table>
+                            <div class="highlight-box" style="margin-top:0.6rem;">
+                                <i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> <strong>Dependencias:</strong> Planeación Pedagógica &nbsp;|&nbsp; <strong>Impacto:</strong> Instrumentos de Evaluación
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 8: INSTRUMENTOS -->
+            <div id="tab-instrumentos" class="tab-content">
+                <div class="component-block">
+                    <h2><i class="fas fa-clipboard-check"></i> Instrumentos de Evaluación</h2>
+                    <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> Herramientas para Verificar el Logro de Competencias</div>
+                    <div class="cmp-grid">
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-list-ul"></i> Tipos de Evidencia e Instrumentos</h4>
+                            <ul>
+                                <li><strong>Evidencia de Conocimiento (Saber):</strong> Cuestionarios, Rúbricas conceptuales</li>
+                                <li><strong>Evidencia de Desempeño (Saber Hacer - Proceso):</strong> Listas de Chequeo de Desempeño, Rúbricas</li>
+                                <li><strong>Evidencia de Producto (Saber Hacer - Resultado):</strong> Listas de Chequeo de Producto, Rúbricas</li>
+                            </ul>
+                            <div style="margin-top:0.8rem;">
+                                <span class="chip">Observación</span>
+                                <span class="chip green">Valoración de productos</span>
+                                <span class="chip blue">Respuesta a preguntas</span>
+                            </div>
+                        </div>
+                        <div class="cmp-col">
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <table class="table-compare">
+                                <tr><th>Antes</th><th>Ahora</th></tr>
+                                <tr class="old"><td>—</td><td class="new"><strong>PROHIBIDO:</strong> términos ambiguos<br>❌ "lo hace bien", "adecuado", "correcto"</td></tr>
+                                <tr class="old"><td>—</td><td class="new"><strong>REQUERIDO:</strong> verbos observables<br>✅ presenta, incluye, evidencia, ejecuta, organiza, aplica, demuestra</td></tr>
+                                <tr class="old"><td>—</td><td class="new"><strong>RECOMENDACIONES:</strong><br>Listas de chequeo: enfocarse en el proceso · incluir habilidades y actitudes<br>Rúbricas: niveles claros · descriptores sin ambigüedades · espacio para retroalimentación</td></tr>
+                            </table>
+                            <div class="highlight-box" style="margin-top:0.6rem;">
+                                <i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> <strong>Dependencias:</strong> Guías de Aprendizaje &nbsp;|&nbsp; <strong>Impacto:</strong> Evaluación del logro de RA
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="footer-note">
+                <i class="fas fa-check-circle" style="color:#1f6a3b;"></i> Terminología SENA: <strong>instructor</strong> · <strong>aprendices</strong> · <strong>programa de formación</strong> · <strong>ambiente de aprendizaje</strong> · <strong>competencia</strong> · <strong>resultado de aprendizaje</strong> · <strong>orientar</strong>
+                <br>Guía de Desarrollo Curricular · Junio 2026 · GFPI-G-060 V01
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================================ -->
+    <script>
+        (function() {
+            // --- Referencias ---
+            const landing = document.getElementById('landing');
+            const cascadaView = document.getElementById('cascada-view');
+
+            // --- Función para activar pestañas (global) ---
+            function activateTab(tabId) {
+                const tabs = cascadaView.querySelectorAll('.tab-btn');
+                const contents = cascadaView.querySelectorAll('.tab-content');
+
+                tabs.forEach(btn => btn.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                const activeBtn = cascadaView.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+                const activeContent = cascadaView.getElementById(tabId);
+
+                if (activeBtn) activeBtn.classList.add('active');
+                if (activeContent) activeContent.classList.add('active');
+            }
+
+            // --- Navegación ---
+            window.mostrarCascada = function() {
+                landing.classList.add('hidden');
+                cascadaView.classList.add('active');
+                // Activar la primera pestaña por defecto
+                const firstTab = cascadaView.querySelector('.tab-btn');
+                if (firstTab) {
+                    activateTab(firstTab.dataset.tab);
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            window.mostrarLanding = function() {
+                landing.classList.remove('hidden');
+                cascadaView.classList.remove('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            // --- Event listeners para pestañas ---
+            const tabs = cascadaView.querySelectorAll('.tab-btn');
+            tabs.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const tabId = this.dataset.tab;
+                    if (tabId) activateTab(tabId);
+                });
+            });
+
+            // --- Descarga de archivos ---
+            window.descargar = function(tipo) {
+                const rutas = {
+                    'guia-anterior': 'docs/Guia_Desarrollo_Curricular_anterior.pdf',
+                    'guia-nueva': 'docs/Guia_Desarrollo_Curricular_nueva.pdf',
+                    'powerpoint': 'docs/Presentacion_Cascada_SENA.pptx',
+                    'podcast': 'docs/Podcast_Desarrollo_Curricular.mp3'
+                };
+
+                const ruta = rutas[tipo];
+                if (ruta) {
+                    const link = document.createElement('a');
+                    link.href = ruta;
+                    link.download = ruta.split('/').pop();
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    console.log('✅ Descargando:', ruta);
+                } else {
+                    alert('⚠️ Archivo no encontrado. Verifica que el archivo exista en la carpeta docs/');
+                }
+            };
+
+            // --- Inicialización ---
+            // Asegurar que landing esté visible al cargar
+            landing.classList.remove('hidden');
+            cascadaView.classList.remove('active');
+
+            console.log('✅ SENA · Landing + Cascada (Junio 2026)');
+            console.log('📌 Terminología institucional: instructor · aprendices · programa de formación · ambiente de aprendizaje · competencia · resultado de aprendizaje');
+
+        })();
+    </script>
+
+</body>
+</html>

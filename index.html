@@ -189,6 +189,27 @@
             }
         }
 
+        /* Tarjeta PODCAST con reproductor */
+        .card-download.podcast-card {
+            grid-column: span 1;
+        }
+        @media (min-width: 900px) {
+            .card-download.podcast-card {
+                grid-column: span 2;
+            }
+        }
+        .podcast-player {
+            width: 100%;
+            max-width: 400px;
+            margin: 0.3rem 0;
+        }
+        .podcast-player iframe {
+            width: 100%;
+            height: 120px;
+            border-radius: 12px;
+            border: none;
+        }
+
         /* ============================================================ */
         /* CASCADA (contenido principal) */
         /* ============================================================ */
@@ -392,6 +413,23 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .cmp-col h4 .btn-modal {
+            background: #2e7d32;
+            color: #fff;
+            border: none;
+            padding: 0.15rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-left: auto;
+        }
+        .cmp-col h4 .btn-modal:hover {
+            background: #1f5a25;
+            transform: scale(1.05);
         }
         .cmp-col ul,
         .cmp-col p {
@@ -513,6 +551,261 @@
             gap: 0.6rem;
             align-items: center;
         }
+
+        /* ============================================================ */
+        /* MODAL */
+        /* ============================================================ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: #ffffff;
+            border-radius: 24px;
+            max-width: 760px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 2rem 2.2rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            animation: modalFade 0.25s ease;
+        }
+        @keyframes modalFade {
+            0% {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .modal-box .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e9edf2;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+        .modal-box .modal-header h2 {
+            font-size: 1.4rem;
+            color: #0b2e4b;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .modal-box .modal-header h2 i {
+            color: #1f6a3b;
+        }
+        .modal-box .modal-close {
+            background: #f1f5f9;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+        }
+        .modal-box .modal-close:hover {
+            background: #e2e8f0;
+            color: #0b2e4b;
+        }
+        .modal-box .modal-body {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #1e293b;
+            white-space: pre-wrap;
+        }
+        .modal-box .modal-body strong {
+            color: #0b2e4b;
+        }
+        .modal-box .modal-body .table-compare {
+            font-size: 0.85rem;
+        }
+
+        /* ============================================================ */
+        /* DRAG & DROP JUEGO */
+        /* ============================================================ */
+        .game-section {
+            background: #f9fcff;
+            border-radius: 24px;
+            padding: 1.8rem 2rem;
+            border: 1px solid #e2eaf2;
+            margin-top: 2rem;
+        }
+        .game-section h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #0b2e4b;
+            margin-bottom: 0.5rem;
+        }
+        .game-section h2 i {
+            color: #1f6a3b;
+        }
+        .game-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f1f6fc;
+            border-radius: 16px;
+        }
+        .game-controls label {
+            font-weight: 600;
+            color: #0b2e4b;
+        }
+        .game-controls select {
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            border: 1px solid #d6e2ee;
+            background: #fff;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .game-controls .score {
+            margin-left: auto;
+            font-weight: 700;
+            color: #1f6a3b;
+            font-size: 1.1rem;
+        }
+        .game-controls .btn-reset {
+            background: #2e7d32;
+            color: #fff;
+            border: none;
+            padding: 0.4rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .game-controls .btn-reset:hover {
+            background: #1f5a25;
+        }
+        .game-board {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 700px) {
+            .game-board {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+        .game-column {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 1rem 1.2rem 1.5rem;
+            border: 2px dashed #d6e2ee;
+            min-height: 200px;
+            transition: 0.2s;
+        }
+        .game-column.drag-over {
+            border-color: #2e7d32;
+            background: #f2faf5;
+        }
+        .game-column h4 {
+            font-weight: 600;
+            color: #1e4a7a;
+            margin-bottom: 0.8rem;
+            text-align: center;
+            border-bottom: 1px solid #e9edf2;
+            padding-bottom: 0.4rem;
+        }
+        .game-column .drop-zone {
+            min-height: 120px;
+            padding: 0.3rem;
+        }
+        .game-item {
+            background: #e6eff8;
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            margin: 0.3rem 0;
+            cursor: grab;
+            transition: 0.2s;
+            border: 1px solid #d6e2ee;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #0b2e4b;
+            user-select: none;
+        }
+        .game-item:hover {
+            background: #dbeafe;
+            transform: scale(1.02);
+        }
+        .game-item.dragging {
+            opacity: 0.4;
+            transform: scale(0.95);
+        }
+        .game-item.correct {
+            background: #e0f0e0;
+            border-color: #2e7d32;
+            cursor: default;
+            opacity: 0.8;
+        }
+        .game-item.incorrect {
+            background: #fde7e7;
+            border-color: #c62828;
+            animation: shake 0.3s ease;
+        }
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-8px);
+            }
+            75% {
+                transform: translateX(8px);
+            }
+        }
+        .game-feedback {
+            text-align: center;
+            padding: 0.8rem;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 1rem;
+            border-radius: 12px;
+            background: #f1f6fc;
+        }
+        .game-feedback.success {
+            background: #e0f0e0;
+            color: #1f6a3b;
+        }
+        .game-feedback.error {
+            background: #fde7e7;
+            color: #a51d1d;
+        }
+        .game-feedback.complete {
+            background: #dbeafe;
+            color: #1a4a7a;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -569,13 +862,20 @@
                     </button>
                 </div>
 
-                <!-- Tarjeta 4: Podcast -->
-                <div class="card-download">
+                <!-- Tarjeta 4: Podcast (con reproductor SoundCloud) -->
+                <div class="card-download podcast-card">
                     <div class="icon podcast"><i class="fas fa-podcast"></i></div>
                     <h3>Podcast</h3>
-                    <p>Audio · Desarrollo Curricular</p>
-                    <button class="btn" onclick="descargar('podcast')">
-                        <i class="fas fa-download"></i> Descargar
+                    <p>🎧 Desarrollo Curricular SENA</p>
+                    <div class="podcast-player">
+                        <iframe 
+                            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/XXXXXXX&color=%232e7d32&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"
+                            allow="autoplay">
+                        </iframe>
+                    </div>
+                    <p style="font-size:0.7rem; color:#94a3b8;">Duración: ~45 min · Streaming gratuito</p>
+                    <button class="btn" onclick="window.open('https://soundcloud.com/hector-fabio-hoyos-giraldo/podcast_desarrollo_curricular?si=1647892f38de42119ce6a6ee666fac41&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing', '_blank')">
+                        <i class="fas fa-external-link-alt"></i> Abrir en SoundCloud
                     </button>
                 </div>
 
@@ -614,10 +914,12 @@
                 <button class="tab-btn" data-tab="tab-planeacion"><i class="fas fa-clipboard-list"></i> Planeación</button>
                 <button class="tab-btn" data-tab="tab-guias"><i class="fas fa-book"></i> Guías</button>
                 <button class="tab-btn" data-tab="tab-instrumentos"><i class="fas fa-clipboard-check"></i> Instrumentos</button>
+                <button class="tab-btn" data-tab="tab-juego"><i class="fas fa-gamepad"></i> 🎮 Juego</button>
             </div>
 
-            <!-- CONTENIDO DE PESTAÑAS -->
+            <!-- ============================================================ -->
             <!-- TAB 1: VISTA CASCADA -->
+            <!-- ============================================================ -->
             <div id="tab-vista" class="tab-content">
                 <h2 style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.4rem;">
                     <i class="fas fa-water" style="color:#1f6a3b;"></i> La Cascada del Desarrollo Curricular
@@ -660,14 +962,16 @@
                 </div>
             </div>
 
-            <!-- TAB 2: PROGRAMA -->
+            <!-- ============================================================ -->
+            <!-- TAB 2: PROGRAMA DE FORMACIÓN -->
+            <!-- ============================================================ -->
             <div id="tab-programa" class="tab-content">
                 <div class="component-block">
                     <h2><i class="fas fa-book-open"></i> Programa de Formación</h2>
                     <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> La Base de la Cascada · Define competencias, RA, duración y perfil de egreso</div>
                     <div class="cmp-grid">
                         <div class="cmp-col">
-                            <h4><i class="fas fa-info-circle"></i> Componentes Clave</h4>
+                            <h4><i class="fas fa-info-circle"></i> Componentes Clave <button class="btn-modal" onclick="abrirModal('modal-programa')">📖 Qué es</button></h4>
                             <ul>
                                 <li>Denominación y Código SOFIA</li>
                                 <li>Nivel: Ocupacional · Técnico · Tecnológico · Complementario</li>
@@ -680,7 +984,7 @@
                             <div style="margin-top:0.8rem;"><span class="chip">N/A</span> <span class="chip green">punto de partida</span></div>
                         </div>
                         <div class="cmp-col">
-                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave (Nueva Guía)</h4>
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave (Nueva Guía) <button class="btn-modal" onclick="abrirModal('modal-programa-cambios')">📖 Cambios</button></h4>
                             <table class="table-compare">
                                 <tr><th>Antes</th><th>Ahora</th></tr>
                                 <tr class="old"><td>Res. 2198/2019</td><td class="new"><strong>Res. 1-02206/2025</strong> y <strong>Res. 1-01041/2026</strong><br><span class="chip">clasificación y modalidades actualizadas</span></td></tr>
@@ -695,14 +999,16 @@
                 </div>
             </div>
 
-            <!-- TAB 3: PROYECTO -->
+            <!-- ============================================================ -->
+            <!-- TAB 3: PROYECTO FORMATIVO -->
+            <!-- ============================================================ -->
             <div id="tab-proyecto" class="tab-content">
                 <div class="component-block">
                     <h2><i class="fas fa-tasks"></i> Proyecto Formativo</h2>
                     <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> El Vehículo para el Desarrollo de Competencias · Único Nacional</div>
                     <div class="cmp-grid">
                         <div class="cmp-col">
-                            <h4><i class="fas fa-sitemap"></i> Estructura (SOFIA Plus)</h4>
+                            <h4><i class="fas fa-sitemap"></i> Estructura (SOFIA Plus) <button class="btn-modal" onclick="abrirModal('modal-proyecto')">📖 Qué es</button></h4>
                             <ul>
                                 <li><strong>Planteamiento del problema:</strong> análisis de causas, herramientas STEAM, IA</li>
                                 <li><strong>Justificación:</strong> texto argumentativo sobre beneficios</li>
@@ -714,7 +1020,7 @@
                             </ul>
                         </div>
                         <div class="cmp-col">
-                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave <button class="btn-modal" onclick="abrirModal('modal-proyecto-cambios')">📖 Cambios</button></h4>
                             <table class="table-compare">
                                 <tr><th>Antes</th><th>Ahora</th></tr>
                                 <tr class="old"><td>Múltiples sub-proyectos</td><td class="new"><strong>PROYECTO FORMATIVO ÚNICO NACIONAL</strong><br>un solo proyecto por programa a nivel nacional</td></tr>
@@ -729,14 +1035,16 @@
                 </div>
             </div>
 
+            <!-- ============================================================ -->
             <!-- TAB 4: ACTA EPC -->
+            <!-- ============================================================ -->
             <div id="tab-epc" class="tab-content">
                 <div class="component-block">
                     <h2><i class="fas fa-check-double"></i> Acta del EPC</h2>
                     <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> Filtro de Calidad Institucional · Revisión Técnica y Metodológica</div>
                     <div class="cmp-grid">
                         <div class="cmp-col">
-                            <h4><i class="fas fa-step-forward"></i> Flujo de Revisión (6 pasos)</h4>
+                            <h4><i class="fas fa-step-forward"></i> Flujo de Revisión (6 pasos) <button class="btn-modal" onclick="abrirModal('modal-epc')">📖 Qué es</button></h4>
                             <ol style="padding-left:1.2rem; line-height:1.8;">
                                 <li>Profesional de diseño envía PF a Coordinación Académica</li>
                                 <li>Coordinador remite <strong>GFPI-F-187</strong> + código + plantilla al EPC</li>
@@ -747,7 +1055,7 @@
                             </ol>
                         </div>
                         <div class="cmp-col">
-                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave <button class="btn-modal" onclick="abrirModal('modal-epc-cambios')">📖 Cambios</button></h4>
                             <table class="table-compare">
                                 <tr><th>Antes</th><th>Ahora</th></tr>
                                 <tr class="old"><td>Revisión general</td><td class="new"><strong>Procedimiento formalizado y detallado</strong><br>pasos claros y roles definidos</td></tr>
@@ -762,14 +1070,16 @@
                 </div>
             </div>
 
-            <!-- TAB 5: MATRIZ -->
+            <!-- ============================================================ -->
+            <!-- TAB 5: MATRIZ DE INTERPRETACIÓN -->
+            <!-- ============================================================ -->
             <div id="tab-matriz" class="tab-content">
                 <div class="component-block">
                     <h2><i class="fas fa-table"></i> Matriz de Interpretación del Diseño</h2>
                     <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> Análisis Profundo de los Resultados de Aprendizaje (RA)</div>
                     <div class="cmp-grid">
                         <div class="cmp-col">
-                            <h4><i class="fas fa-brain"></i> Estructura de Análisis</h4>
+                            <h4><i class="fas fa-brain"></i> Estructura de Análisis <button class="btn-modal" onclick="abrirModal('modal-matriz')">📖 Qué es</button></h4>
                             <ul>
                                 <li><strong>SABER (Conceptual):</strong> teorías, principios, normas, terminología</li>
                                 <li><strong>SABER HACER (Procedimental):</strong> procedimientos, técnicas, herramientas, secuencias</li>
@@ -780,7 +1090,7 @@
                             </div>
                         </div>
                         <div class="cmp-col">
-                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave <button class="btn-modal" onclick="abrirModal('modal-matriz-cambios')">📖 Cambios</button></h4>
                             <table class="table-compare">
                                 <tr><th>Antes</th><th>Ahora</th></tr>
                                 <tr class="old"><td>Análisis de RA aislado</td><td class="new"><strong>CRITERIO DE CONTINUIDAD:</strong> todas las planeaciones deben incluir <strong>conjuntos combinados</strong> de RA (técnicos + transversales)</td></tr>
@@ -794,14 +1104,16 @@
                 </div>
             </div>
 
-            <!-- TAB 6: PLANEACIÓN -->
+            <!-- ============================================================ -->
+            <!-- TAB 6: PLANEACIÓN PEDAGÓGICA -->
+            <!-- ============================================================ -->
             <div id="tab-planeacion" class="tab-content">
                 <div class="component-block">
                     <h2><i class="fas fa-clipboard-list"></i> Planeación Pedagógica</h2>
                     <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> El Corazón del Proceso Formativo · "Trazar la obra"</div>
                     <div class="cmp-grid">
                         <div class="cmp-col">
-                            <h4><i class="fas fa-layer-group"></i> Variables (orden lógico)</h4>
+                            <h4><i class="fas fa-layer-group"></i> Variables (orden lógico) <button class="btn-modal" onclick="abrirModal('modal-planeacion')">📖 Qué es</button></h4>
                             <ul>
                                 <li><strong>Resultados de Aprendizaje</strong> (variable independiente)</li>
                                 <li><strong>Actividades de Aprendizaje</strong> (V+O+C) · cognitivas, procedimentales, actitudinales</li>
@@ -817,7 +1129,7 @@
                             </div>
                         </div>
                         <div class="cmp-col">
-                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave <button class="btn-modal" onclick="abrirModal('modal-planeacion-cambios')">📖 Cambios</button></h4>
                             <table class="table-compare">
                                 <tr><th>Antes</th><th>Ahora</th></tr>
                                 <tr class="old"><td>Sin definición clara de horas</td><td class="new"><strong>DISTRIBUCIÓN HTAD/HTI por modalidad</strong><br>Presencial 80/20 · Distancia 40/60 · Virtual 20/80<br><span class="chip">48h = 1 crédito</span></td></tr>
@@ -831,14 +1143,16 @@
                 </div>
             </div>
 
-            <!-- TAB 7: GUÍAS -->
+            <!-- ============================================================ -->
+            <!-- TAB 7: GUÍAS DE APRENDIZAJE -->
+            <!-- ============================================================ -->
             <div id="tab-guias" class="tab-content">
                 <div class="component-block">
                     <h2><i class="fas fa-book"></i> Guías de Aprendizaje</h2>
                     <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> El Manual del Aprendiz · 3 Momentos del Ciclo Didáctico</div>
                     <div class="cmp-grid">
                         <div class="cmp-col">
-                            <h4><i class="fas fa-hourglass-start"></i> Estructura Sistémica</h4>
+                            <h4><i class="fas fa-hourglass-start"></i> Estructura Sistémica <button class="btn-modal" onclick="abrirModal('modal-guias')">📖 Qué es</button></h4>
                             <ul>
                                 <li><strong>Momento 1: Reflexión Inicial</strong><br>Situación Problémica · Contextualización · Saberes previos</li>
                                 <li><strong>Momento 2: Apropiación</strong><br>Subactividades · Mapas mentales · Didácticas activas · Trabajo individual/grupal</li>
@@ -846,7 +1160,7 @@
                             </ul>
                         </div>
                         <div class="cmp-col">
-                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave <button class="btn-modal" onclick="abrirModal('modal-guias-cambios')">📖 Cambios</button></h4>
                             <table class="table-compare">
                                 <tr><th>Antes</th><th>Ahora</th></tr>
                                 <tr class="old"><td>—</td><td class="new"><strong>FORMATO GFPI-F-135</strong><br>Identificación · Presentación · Actividades (3 momentos) · Evidencias</td></tr>
@@ -860,14 +1174,16 @@
                 </div>
             </div>
 
-            <!-- TAB 8: INSTRUMENTOS -->
+            <!-- ============================================================ -->
+            <!-- TAB 8: INSTRUMENTOS DE EVALUACIÓN -->
+            <!-- ============================================================ -->
             <div id="tab-instrumentos" class="tab-content">
                 <div class="component-block">
                     <h2><i class="fas fa-clipboard-check"></i> Instrumentos de Evaluación</h2>
                     <div class="subtitle"><i class="fas fa-arrow-right" style="color:#1f6a3b;"></i> Herramientas para Verificar el Logro de Competencias</div>
                     <div class="cmp-grid">
                         <div class="cmp-col">
-                            <h4><i class="fas fa-list-ul"></i> Tipos de Evidencia e Instrumentos</h4>
+                            <h4><i class="fas fa-list-ul"></i> Tipos de Evidencia e Instrumentos <button class="btn-modal" onclick="abrirModal('modal-instrumentos')">📖 Qué es</button></h4>
                             <ul>
                                 <li><strong>Evidencia de Conocimiento (Saber):</strong> Cuestionarios, Rúbricas conceptuales</li>
                                 <li><strong>Evidencia de Desempeño (Saber Hacer - Proceso):</strong> Listas de Chequeo de Desempeño, Rúbricas</li>
@@ -880,7 +1196,7 @@
                             </div>
                         </div>
                         <div class="cmp-col">
-                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave</h4>
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#b45f1b;"></i> Modificaciones Clave <button class="btn-modal" onclick="abrirModal('modal-instrumentos-cambios')">📖 Cambios</button></h4>
                             <table class="table-compare">
                                 <tr><th>Antes</th><th>Ahora</th></tr>
                                 <tr class="old"><td>—</td><td class="new"><strong>PROHIBIDO:</strong> términos ambiguos<br>❌ "lo hace bien", "adecuado", "correcto"</td></tr>
@@ -895,7 +1211,38 @@
                 </div>
             </div>
 
-            <!-- FOOTER -->
+            <!-- ============================================================ -->
+            <!-- TAB 9: JUEGO DRAG & DROP -->
+            <!-- ============================================================ -->
+            <div id="tab-juego" class="tab-content">
+                <div class="game-section">
+                    <h2><i class="fas fa-gamepad"></i> Juego Interactivo · Afianza tus conocimientos</h2>
+                    <p style="color:#475569; margin-bottom:1rem;">Arrastra cada concepto a la categoría correcta. ¡Demuestra lo que sabes sobre la nueva guía!</p>
+
+                    <div class="game-controls">
+                        <label for="categoria-select"><i class="fas fa-tag"></i> Categoría:</label>
+                        <select id="categoria-select" onchange="iniciarJuego()">
+                            <option value="principios">Principios Rectores</option>
+                            <option value="modalidades">Modalidades de Formación</option>
+                            <option value="cambios">Cambios Clave (2026)</option>
+                            <option value="instrumentos">Instrumentos de Evaluación</option>
+                            <option value="terminologia">Terminología SENA</option>
+                        </select>
+                        <span class="score" id="puntaje">✅ 0 / 0</span>
+                        <button class="btn-reset" onclick="iniciarJuego()"><i class="fas fa-redo"></i> Reiniciar</button>
+                    </div>
+
+                    <div class="game-board" id="game-board">
+                        <!-- Las columnas se generan dinámicamente con JavaScript -->
+                    </div>
+
+                    <div class="game-feedback" id="game-feedback">
+                        Arrastra los elementos a la columna correspondiente.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== FOOTER ===== -->
             <div class="footer-note">
                 <i class="fas fa-check-circle" style="color:#1f6a3b;"></i> Terminología SENA: <strong>instructor</strong> · <strong>aprendices</strong> · <strong>programa de formación</strong> · <strong>ambiente de aprendizaje</strong> · <strong>competencia</strong> · <strong>resultado de aprendizaje</strong> · <strong>orientar</strong>
                 <br>Guía de Desarrollo Curricular · Junio 2026 · GFPI-G-060 V01
@@ -905,39 +1252,338 @@
     </div>
 
     <!-- ============================================================ -->
+    <!-- MODALES (ocultos por defecto) -->
+    <!-- ============================================================ -->
+
+    <!-- Modal: Programa de Formación -->
+    <div class="modal-overlay" id="modal-programa">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-book-open"></i> Programa de Formación</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-programa')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>📋 Definición</strong>
+                Conjunto de condiciones de ingreso y egreso a la formación. Sujeto a estrategias metodológicas para desarrollar competencias expresadas en contenidos curriculares. Conduce a un certificado o título, según corresponda.
+
+                <strong>🔑 Componentes Clave</strong>
+                • Denominación y Código SOFIA
+                • Nivel: Ocupacional · Técnico · Tecnológico · Complementario
+                • Modalidad: Presencial · Virtual · A Distancia
+                • Duración en Horas
+                • Competencias Específicas y Básicas (Clave y Transversales)
+                • Resultados de Aprendizaje (RA) con Criterios de Evaluación
+                • Perfil de Ingreso y Egreso
+
+                <strong>📌 Dependencias:</strong> Ninguna (es el punto de partida)
+                <strong>📌 Impacto:</strong> Define todos los elementos posteriores de la cascada.
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Programa Cambios -->
+    <div class="modal-overlay" id="modal-programa-cambios">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Programa · Cambios Clave</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-programa-cambios')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>🔴 Modificaciones Clave (Nueva Guía 2026)</strong>
+
+                <table class="table-compare">
+                    <tr><th>Antes</th><th>Ahora</th></tr>
+                    <tr class="old"><td>Res. 2198/2019</td><td class="new"><strong>Res. 1-02206/2025</strong> y <strong>Res. 1-01041/2026</strong> · Clasificación y modalidades actualizadas</td></tr>
+                    <tr class="old"><td>Sin énfasis en economías populares</td><td class="new"><strong>Acuerdo 3/2023:</strong> Estrategia CampeSENA · Programa FEEC</td></tr>
+                    <tr class="old"><td>Enfoque general</td><td class="new"><strong>Acuerdo 10/2016:</strong> Enfoque Pluralista y Diferencial</td></tr>
+                </table>
+                <p><strong>Impacto:</strong> Define todos los elementos posteriores de la cascada.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Proyecto Formativo -->
+    <div class="modal-overlay" id="modal-proyecto">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-tasks"></i> Proyecto Formativo</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-proyecto')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>🎯 Definición</strong>
+                "Instrumento de gestión que prevé y organiza acciones de planeación técnico-pedagógicas y de administración" (SENA, 1985).
+
+                <strong>📋 Estructura (Registro en SOFIA Plus)</strong>
+                1. <strong>Planteamiento del problema:</strong> Análisis de causas (Diagrama Causa-Efecto), herramientas STEAM, IA
+                2. <strong>Justificación:</strong> Texto argumentativo sobre beneficios
+                3. <strong>Objetivo General:</strong> Verbo en infinitivo + objeto + condición (medible)
+                4. <strong>Objetivos Específicos:</strong> Reflejan las fases del proyecto
+                5. <strong>Alcance:</strong> Beneficiarios, impactos (social, económico, ambiental, tecnológico)
+                6. <strong>Fases del Proyecto:</strong> Análisis · Planeación · Ejecución · Evaluación (mínimo 4)
+                7. <strong>Actividades por fase:</strong> 2-4 (V+O+C) asociadas a RA
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Proyecto Cambios -->
+    <div class="modal-overlay" id="modal-proyecto-cambios">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Proyecto · Cambios Clave</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-proyecto-cambios')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>🔴 Modificaciones Clave (Nueva Guía 2026)</strong>
+
+                <table class="table-compare">
+                    <tr><th>Antes</th><th>Ahora</th></tr>
+                    <tr class="old"><td>Múltiples sub-proyectos</td><td class="new"><strong>PROYECTO FORMATIVO ÚNICO NACIONAL</strong> · un solo proyecto por programa</td></tr>
+                    <tr class="old"><td>Contextualizaciones regionales</td><td class="new"><strong>ATEMPORAL · SIN CONTEXTOS REGIONALES</strong> · En "Empresas o instituciones" → <strong>N/A</strong></td></tr>
+                    <tr class="old"><td>Registro en SOFIA solo para programas en ejecución</td><td class="new">Programas en estado "aprobado" → <strong>Plantilla de proyecto</strong></td></tr>
+                </table>
+                <p><strong>Dependencias:</strong> Programa de Formación · <strong>Impacto:</strong> Acta EPC · Matriz · Planeación</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Acta EPC -->
+    <div class="modal-overlay" id="modal-epc">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-check-double"></i> Acta del EPC</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-epc')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>✅ Definición</strong>
+                Registro formal que documenta la revisión y viabilización técnica y metodológica del proyecto formativo.
+
+                <strong>📋 Flujo de Revisión (6 pasos)</strong>
+                1. Profesional de diseño envía PF a Coordinación Académica
+                2. Coordinador remite <strong>GFPI-F-187</strong> + código + plantilla al EPC
+                3. EPC revisa pedagógica y técnicamente, diligencia el formato
+                4. Profesional de diseño consolida observaciones
+                5. Equipo de Gestión Curricular realiza ajustes
+                6. EPC sesiona para viabilizar mediante <strong>acta</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: EPC Cambios -->
+    <div class="modal-overlay" id="modal-epc-cambios">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Acta EPC · Cambios Clave</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-epc-cambios')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>🔴 Modificaciones Clave (Nueva Guía 2026)</strong>
+
+                <table class="table-compare">
+                    <tr><th>Antes</th><th>Ahora</th></tr>
+                    <tr class="old"><td>Revisión general</td><td class="new"><strong>Procedimiento formalizado y detallado</strong> · pasos claros y roles definidos</td></tr>
+                    <tr class="old"><td>Formato genérico</td><td class="new"><strong>GFPI-F-187</strong> con criterios específicos para PF</td></tr>
+                    <tr class="old"><td>—</td><td class="new">Si un integrante del EPC está en el equipo de gestión, se solicita concepto a otro instructor o centro asociado</td></tr>
+                </table>
+                <p><strong>Dependencias:</strong> Proyecto Formativo · <strong>Impacto:</strong> Matriz · Planeación</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Matriz -->
+    <div class="modal-overlay" id="modal-matriz">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-table"></i> Matriz de Interpretación</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-matriz')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>🔍 Definición</strong>
+                Herramienta de análisis que permite desglosar los Resultados de Aprendizaje (RA) para identificar los conocimientos, habilidades y actitudes que deben ser desarrollados.
+
+                <strong>📋 Estructura de Análisis</strong>
+                • <strong>SABER (Conceptual):</strong> teorías, principios, normas, terminología
+                • <strong>SABER HACER (Procedimental):</strong> procedimientos, técnicas, herramientas, secuencias
+                • <strong>SER (Actitudinal):</strong> valores, principios, seguridad, trabajo colaborativo
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Matriz Cambios -->
+    <div class="modal-overlay" id="modal-matriz-cambios">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Matriz · Cambios Clave</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-matriz-cambios')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>🔴 Modificaciones Clave (Nueva Guía 2026)</strong>
+
+                <table class="table-compare">
+                    <tr><th>Antes</th><th>Ahora</th></tr>
+                    <tr class="old"><td>Análisis de RA aislado</td><td class="new"><strong>CRITERIO DE CONTINUIDAD:</strong> todas las planeaciones deben incluir <strong>conjuntos combinados</strong> de RA (técnicos + transversales)</td></tr>
+                    <tr class="old"><td>Enfoque en dominios separados</td><td class="new"><strong>ANÁLISIS INTEGRADO:</strong> se analizan los RA en su interrelación para garantizar formación integral</td></tr>
+                </table>
+                <p><strong>Dependencias:</strong> Proyecto · Acta EPC · <strong>Impacto:</strong> Planeación Pedagógica</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Planeación -->
+    <div class="modal-overlay" id="modal-planeacion">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-clipboard-list"></i> Planeación Pedagógica</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-planeacion')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>📝 Definición</strong>
+                "Trazar la obra" del proceso de enseñanza-aprendizaje-evaluación. Involucra diferentes momentos, actores, recursos y medios para lograr los Resultados de Aprendizaje.
+
+                <strong>📋 Variables (orden lógico)</strong>
+                1. <strong>Resultados de Aprendizaje</strong> (variable independiente)
+                2. <strong>Actividades de Aprendizaje</strong> (V+O+C) · cognitivas, procedimentales, actitudinales
+                3. <strong>Estrategias Didácticas</strong> (estudio de casos, seminarios, juegos de rol)
+                4. <strong>Ambientes de Aprendizaje</strong> (escenarios, materiales, instructores responsables)
+                5. <strong>Evidencias de Aprendizaje</strong> (conocimiento, desempeño, producto)
+
+                <strong>📌 Criterios:</strong> Continuidad · Pertinencia · Sistematicidad · Antecedente-consecuente
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Planeación Cambios -->
+    <div class="modal-overlay" id="modal-planeacion-cambios">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Planeación · Cambios Clave</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-planeacion-cambios')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>🔴 Modificaciones Clave (Nueva Guía 2026)</strong>
+
+                <table class="table-compare">
+                    <tr><th>Antes</th><th>Ahora</th></tr>
+                    <tr class="old"><td>Sin definición clara de horas</td><td class="new"><strong>DISTRIBUCIÓN HTAD/HTI por modalidad</strong><br>Presencial 80/20 · Distancia 40/60 · Virtual 20/80 · <span class="chip">48h = 1 crédito</span></td></tr>
+                    <tr class="old"><td>—</td><td class="new"><strong>FORMATO GFPI-F-134</strong> · 2-4 actividades de aprendizaje por fase · cubrir las 3 áreas</td></tr>
+                </table>
+                <p><strong>Dependencias:</strong> Matriz de Interpretación · <strong>Impacto:</strong> Guías · Instrumentos</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Guías -->
+    <div class="modal-overlay" id="modal-guias">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-book"></i> Guías de Aprendizaje</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-guias')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>📖 Definición</strong>
+                Recurso didáctico consolidado como texto que facilita el desarrollo de un aprendizaje activo centrado en el Aprendiz. Desarrolla competencias en los dominios: valorativo-actitudinal, cognitivo y procedimental.
+
+                <strong>📋 Estructura Sistémica (3 Momentos)</strong>
+                • <strong>Momento 1: Reflexión Inicial</strong> · Situación Problémica · Contextualización · Saberes previos
+                • <strong>Momento 2: Apropiación</strong> · Subactividades · Mapas mentales · Didácticas activas
+                • <strong>Momento 3: Transferencia</strong> · Aplicación en contextos reales · Talleres · Prácticas · Innovación
+
+                <strong>📌 Ciclo Didáctico (Bustos, 1980):</strong> Reflexión → Contextualización → Conceptualización → Aplicación/Transferencia
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Guías Cambios -->
+    <div class="modal-overlay" id="modal-guias-cambios">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Guías · Cambios Clave</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-guias-cambios')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>🔴 Modificaciones Clave (Nueva Guía 2026)</strong>
+
+                <table class="table-compare">
+                    <tr><th>Antes</th><th>Ahora</th></tr>
+                    <tr class="old"><td>—</td><td class="new"><strong>FORMATO GFPI-F-135</strong> · Identificación · Presentación · Actividades (3 momentos) · Evidencias</td></tr>
+                    <tr class="old"><td>Ciclo didáctico genérico</td><td class="new"><strong>CICLO DIDÁCTICO (Bustos, 1980):</strong> Reflexión → Contextualización → Conceptualización → Aplicación/Transferencia</td></tr>
+                </table>
+                <p><strong>Dependencias:</strong> Planeación Pedagógica · <strong>Impacto:</strong> Instrumentos de Evaluación</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Instrumentos -->
+    <div class="modal-overlay" id="modal-instrumentos">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-clipboard-check"></i> Instrumentos de Evaluación</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-instrumentos')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>📊 Definición</strong>
+                Conjunto de herramientas utilizadas por el instructor para recoger datos sobre los resultados de aprendizaje y los criterios de evaluación definidos en el diseño curricular.
+
+                <strong>📋 Tipos de Evidencia e Instrumentos</strong>
+                • <strong>Evidencia de Conocimiento (Saber):</strong> Cuestionarios, Rúbricas conceptuales
+                • <strong>Evidencia de Desempeño (Saber Hacer - Proceso):</strong> Listas de Chequeo de Desempeño, Rúbricas
+                • <strong>Evidencia de Producto (Saber Hacer - Resultado):</strong> Listas de Chequeo de Producto, Rúbricas
+
+                <strong>📌 Técnicas:</strong> Observación · Valoración de productos · Respuesta a preguntas
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Instrumentos Cambios -->
+    <div class="modal-overlay" id="modal-instrumentos-cambios">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Instrumentos · Cambios Clave</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-instrumentos-cambios')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <strong>🔴 Modificaciones Clave (Nueva Guía 2026)</strong>
+
+                <table class="table-compare">
+                    <tr><th>Antes</th><th>Ahora</th></tr>
+                    <tr class="old"><td>—</td><td class="new"><strong>PROHIBIDO:</strong> términos ambiguos ❌ "lo hace bien", "adecuado", "correcto"</td></tr>
+                    <tr class="old"><td>—</td><td class="new"><strong>REQUERIDO:</strong> verbos observables ✅ presenta, incluye, evidencia, ejecuta, organiza, aplica, demuestra</td></tr>
+                    <tr class="old"><td>—</td><td class="new"><strong>RECOMENDACIONES:</strong> Listas de chequeo enfocadas en el proceso · Rúbricas con niveles claros · Cuestionarios con preguntas de aplicación</td></tr>
+                </table>
+                <p><strong>Dependencias:</strong> Guías de Aprendizaje · <strong>Impacto:</strong> Evaluación del logro de RA</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
     <!-- JAVASCRIPT -->
     <!-- ============================================================ -->
     <script>
         (function() {
-            // --- Referencias ---
+            // ============================================================
+            // 1. NAVEGACIÓN LANDING / CASCADA
+            // ============================================================
             const landing = document.getElementById('landing');
             const cascadaView = document.getElementById('cascada-view');
 
-            // --- Función para activar pestañas (global) ---
             function activateTab(tabId) {
                 const tabs = cascadaView.querySelectorAll('.tab-btn');
                 const contents = cascadaView.querySelectorAll('.tab-content');
-
                 tabs.forEach(btn => btn.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
-
                 const activeBtn = cascadaView.querySelector(`.tab-btn[data-tab="${tabId}"]`);
                 const activeContent = cascadaView.getElementById(tabId);
-
                 if (activeBtn) activeBtn.classList.add('active');
                 if (activeContent) activeContent.classList.add('active');
             }
 
-            // --- Navegación ---
             window.mostrarCascada = function() {
                 landing.classList.add('hidden');
                 cascadaView.classList.add('active');
-                // Activar la primera pestaña por defecto
                 const firstTab = cascadaView.querySelector('.tab-btn');
-                if (firstTab) {
-                    activateTab(firstTab.dataset.tab);
-                }
+                if (firstTab) activateTab(firstTab.dataset.tab);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                // Iniciar el juego cuando se abre la cascada
+                setTimeout(iniciarJuego, 300);
             };
 
             window.mostrarLanding = function() {
@@ -946,24 +1592,31 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             };
 
-            // --- Event listeners para pestañas ---
+            // Tabs
             const tabs = cascadaView.querySelectorAll('.tab-btn');
             tabs.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     const tabId = this.dataset.tab;
-                    if (tabId) activateTab(tabId);
+                    if (tabId) {
+                        activateTab(tabId);
+                        // Si es la pestaña del juego, inicializarlo
+                        if (tabId === 'tab-juego') {
+                            setTimeout(iniciarJuego, 100);
+                        }
+                    }
                 });
             });
 
-            // --- Descarga de archivos ---
+            // ============================================================
+            // 2. DESCARGA DE ARCHIVOS
+            // ============================================================
             window.descargar = function(tipo) {
                 const rutas = {
-                    'guia-anterior': 'docs/Guia_Desarrollo_Curricular_anterior.pdf',
-                    'guia-nueva': 'docs/Guia_Desarrollo_Curricular_nueva.pdf',
-                    'powerpoint': 'docs/Presentacion_Cascada_SENA.pptx',
-                    'podcast': 'docs/Podcast_Desarrollo_Curricular.mp3'
+                    'guia-anterior': 'doc/Guia_Desarrollo_Curricular-anterior.pdf',
+                    'guia-nueva': 'doc/Guia Desarrollo Curricular-nueva.pdf',
+                    'powerpoint': 'doc/Presentation_Cascada_SENA.pptx',
+                    'podcast': 'doc/Podcast_Desarrollo_Curricular.mp3'
                 };
-
                 const ruta = rutas[tipo];
                 if (ruta) {
                     const link = document.createElement('a');
@@ -974,16 +1627,340 @@
                     document.body.removeChild(link);
                     console.log('✅ Descargando:', ruta);
                 } else {
-                    alert('⚠️ Archivo no encontrado. Verifica que el archivo exista en la carpeta docs/');
+                    alert('⚠️ Archivo no encontrado. Verifica que el archivo exista en la carpeta doc/');
                 }
             };
 
-            // --- Inicialización ---
-            // Asegurar que landing esté visible al cargar
+            // ============================================================
+            // 3. MODALES
+            // ============================================================
+            window.abrirModal = function(id) {
+                const modal = document.getElementById(id);
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+
+            window.cerrarModal = function(id) {
+                const modal = document.getElementById(id);
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            };
+
+            // Cerrar modal al hacer clic fuera
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+
+            // Cerrar modal con tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                }
+            });
+
+            // ============================================================
+            // 4. JUEGO DRAG & DROP
+            // ============================================================
+            // Datos del juego por categoría
+            const datosJuego = {
+                principios: {
+                    titulo: 'Principios Rectores',
+                    categorias: ['Continuidad', 'Pertinencia', 'Sistematicidad', 'Antecedente-consecuente'],
+                    items: [
+                        { texto: 'Conjuntos combinados de RA (técnicos + transversales)', categoria: 'Continuidad' },
+                        { texto: 'RA básicos en función de los específicos', categoria: 'Pertinencia' },
+                        { texto: 'Enfoque sistémico y holístico', categoria: 'Sistematicidad' },
+                        { texto: 'Secuencia lógica de conocimientos', categoria: 'Antecedente-consecuente' },
+                        { texto: 'Nunca se planean competencias de forma aislada', categoria: 'Continuidad' },
+                        { texto: 'Componentes interrelacionados orientados al mismo fin', categoria: 'Sistematicidad' }
+                    ]
+                },
+                modalidades: {
+                    titulo: 'Modalidades de Formación',
+                    categorias: ['Presencial', 'Virtual', 'A Distancia'],
+                    items: [
+                        { texto: 'HTAD 80% · HTI 20%', categoria: 'Presencial' },
+                        { texto: 'HTAD 20% · HTI 80%', categoria: 'Virtual' },
+                        { texto: 'HTAD 40% · HTI 60%', categoria: 'A Distancia' },
+                        { texto: 'Interacción directa en ambientes de aprendizaje', categoria: 'Presencial' },
+                        { texto: 'Aprendizaje autónomo mediado por TIC', categoria: 'Virtual' },
+                        { texto: 'Alterna entornos virtuales y presenciales', categoria: 'A Distancia' }
+                    ]
+                },
+                cambios: {
+                    titulo: 'Cambios Clave (2026)',
+                    categorias: ['Proyecto Formativo', 'Planeación Pedagógica', 'Evaluación', 'Normativa'],
+                    items: [
+                        { texto: 'Proyecto Formativo Único Nacional', categoria: 'Proyecto Formativo' },
+                        { texto: 'Distribución HTAD/HTI por modalidad', categoria: 'Planeación Pedagógica' },
+                        { texto: 'Prohibido usar términos ambiguos en instrumentos', categoria: 'Evaluación' },
+                        { texto: 'Res. 1-02206/2025 y Res. 1-01041/2026', categoria: 'Normativa' },
+                        { texto: 'Criterio de Continuidad obligatorio', categoria: 'Planeación Pedagógica' },
+                        { texto: 'Verbos observables en rúbricas y listas', categoria: 'Evaluación' }
+                    ]
+                },
+                instrumentos: {
+                    titulo: 'Instrumentos de Evaluación',
+                    categorias: ['Evidencia de Conocimiento', 'Evidencia de Desempeño', 'Evidencia de Producto'],
+                    items: [
+                        { texto: 'Cuestionarios y Rúbricas conceptuales', categoria: 'Evidencia de Conocimiento' },
+                        { texto: 'Listas de Chequeo de Desempeño', categoria: 'Evidencia de Desempeño' },
+                        { texto: 'Listas de Chequeo de Producto', categoria: 'Evidencia de Producto' },
+                        { texto: 'Mide comprensión de conceptos y teorías', categoria: 'Evidencia de Conocimiento' },
+                        { texto: 'Observación directa de procedimientos', categoria: 'Evidencia de Desempeño' },
+                        { texto: 'Evalúa calidad de informes, prototipos, maquetas', categoria: 'Evidencia de Producto' }
+                    ]
+                },
+                terminologia: {
+                    titulo: 'Terminología SENA',
+                    categorias: ['Actores', 'Procesos', 'Recursos', 'Resultados'],
+                    items: [
+                        { texto: 'Instructor · Aprendices', categoria: 'Actores' },
+                        { texto: 'Programa de Formación · Orientar', categoria: 'Procesos' },
+                        { texto: 'Ambiente de Aprendizaje · Guías de Aprendizaje', categoria: 'Recursos' },
+                        { texto: 'Competencia · Resultado de Aprendizaje', categoria: 'Resultados' },
+                        { texto: 'Equipo Pedagógico de Centro (EPC)', categoria: 'Actores' },
+                        { texto: 'Proyecto Formativo · Planeación Pedagógica', categoria: 'Procesos' }
+                    ]
+                }
+            };
+
+            let juegoActual = {
+                categoria: 'principios',
+                items: [],
+                categorias: [],
+                aciertos: 0,
+                total: 0,
+                arrastrando: null
+            };
+
+            function iniciarJuego() {
+                const select = document.getElementById('categoria-select');
+                const clave = select ? select.value : 'principios';
+                const data = datosJuego[clave];
+                if (!data) return;
+
+                juegoActual.categoria = clave;
+                juegoActual.categorias = data.categorias;
+                // Mezclar los items para que no estén ordenados
+                juegoActual.items = [...data.items];
+                for (let i = juegoActual.items.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [juegoActual.items[i], juegoActual.items[j]] = [juegoActual.items[j], juegoActual.items[i]];
+                }
+                juegoActual.aciertos = 0;
+                juegoActual.total = juegoActual.items.length;
+
+                renderizarJuego();
+                actualizarPuntaje();
+                document.getElementById('game-feedback').className = 'game-feedback';
+                document.getElementById('game-feedback').textContent = 'Arrastra los elementos a la columna correspondiente.';
+            }
+
+            function renderizarJuego() {
+                const board = document.getElementById('game-board');
+                const data = datosJuego[juegoActual.categoria];
+                if (!data) return;
+
+                // Crear columnas
+                let html = '';
+                data.categorias.forEach(cat => {
+                    html += `
+                        <div class="game-column" data-categoria="${cat}">
+                            <h4>${cat}</h4>
+                            <div class="drop-zone" data-categoria="${cat}"></div>
+                        </div>
+                    `;
+                });
+
+                // Crear columna de items (mezclados)
+                html += `
+                    <div class="game-column" style="border-color: #2e7d32; border-style: solid;">
+                        <h4>📦 Elementos</h4>
+                        <div class="drop-zone" id="items-origen">
+                            ${juegoActual.items.map((item, idx) => `
+                                <div class="game-item" draggable="true" data-idx="${idx}" data-categoria="${item.categoria}">
+                                    ${item.texto}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
+                board.innerHTML = html;
+
+                // Configurar drag & drop
+                configurarDragDrop();
+            }
+
+            function configurarDragDrop() {
+                const items = document.querySelectorAll('.game-item');
+                const dropZones = document.querySelectorAll('.drop-zone');
+
+                // Drag start
+                items.forEach(item => {
+                    item.addEventListener('dragstart', function(e) {
+                        if (this.classList.contains('correct')) {
+                            e.preventDefault();
+                            return;
+                        }
+                        this.classList.add('dragging');
+                        juegoActual.arrastrando = {
+                            idx: parseInt(this.dataset.idx),
+                            categoria: this.dataset.categoria,
+                            texto: this.textContent.trim(),
+                            elemento: this
+                        };
+                        e.dataTransfer.effectAllowed = 'move';
+                        e.dataTransfer.setData('text/plain', this.dataset.idx);
+                    });
+
+                    item.addEventListener('dragend', function(e) {
+                        this.classList.remove('dragging');
+                    });
+                });
+
+                // Drop zones
+                dropZones.forEach(zone => {
+                    zone.addEventListener('dragover', function(e) {
+                        e.preventDefault();
+                        this.closest('.game-column').classList.add('drag-over');
+                        e.dataTransfer.dropEffect = 'move';
+                    });
+
+                    zone.addEventListener('dragleave', function(e) {
+                        this.closest('.game-column').classList.remove('drag-over');
+                    });
+
+                    zone.addEventListener('drop', function(e) {
+                        e.preventDefault();
+                        this.closest('.game-column').classList.remove('drag-over');
+
+                        const catDestino = this.dataset.categoria || this.closest('.game-column').dataset
+                        .categoria;
+                        if (!juegoActual.arrastrando) return;
+
+                        const item = juegoActual.arrastrando;
+                        const esCorrecto = item.categoria === catDestino;
+
+                        if (esCorrecto) {
+                            // Correcto: mover el item a la zona de destino
+                            const itemElement = item.elemento;
+                            itemElement.classList.remove('dragging');
+                            itemElement.classList.add('correct');
+                            itemElement.draggable = false;
+
+                            // Remover el item de su contenedor actual y agregarlo al drop zone
+                            const nuevoItem = itemElement.cloneNode(true);
+                            nuevoItem.draggable = false;
+                            nuevoItem.classList.add('correct');
+                            // Limpiar event listeners viejos
+                            this.appendChild(nuevoItem);
+
+                            // Remover el original
+                            if (itemElement.parentNode) {
+                                itemElement.remove();
+                            }
+
+                            juegoActual.aciertos++;
+                            actualizarPuntaje();
+
+                            const feedback = document.getElementById('game-feedback');
+                            feedback.className = 'game-feedback success';
+                            feedback.textContent = `✅ ¡Correcto! "${item.texto}" pertenece a "${catDestino}"`;
+
+                            // Verificar si completó
+                            if (juegoActual.aciertos === juegoActual.total) {
+                                feedback.className = 'game-feedback complete';
+                                feedback.textContent = '🎉 ¡FELICIDADES! Has completado todas las asociaciones correctamente. ¡Dominas el tema!';
+                                // Reproducir efecto de celebración simple
+                                confettiEffect();
+                            }
+
+                        } else {
+                            // Incorrecto: animación de error
+                            const itemElement = item.elemento;
+                            itemElement.classList.add('incorrect');
+                            setTimeout(() => {
+                                itemElement.classList.remove('incorrect');
+                            }, 400);
+
+                            const feedback = document.getElementById('game-feedback');
+                            feedback.className = 'game-feedback error';
+                            feedback.textContent = `❌ Incorrecto. "${item.texto}" no pertenece a "${catDestino}". Intenta de nuevo.`;
+                        }
+
+                        juegoActual.arrastrando = null;
+                    });
+                });
+            }
+
+            function actualizarPuntaje() {
+                const score = document.getElementById('puntaje');
+                if (score) {
+                    score.textContent = `✅ ${juegoActual.aciertos} / ${juegoActual.total}`;
+                }
+            }
+
+            // Efecto confetti simple
+            function confettiEffect() {
+                const colors = ['#2e7d32', '#1f6a3b', '#d4edda', '#ffd700', '#ff6b6b', '#4a9eff'];
+                for (let i = 0; i < 40; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.style.cssText = `
+                        position: fixed;
+                        width: ${6 + Math.random() * 8}px;
+                        height: ${6 + Math.random() * 8}px;
+                        background: ${colors[Math.floor(Math.random() * colors.length)]};
+                        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+                        left: ${Math.random() * 100}vw;
+                        top: -10px;
+                        pointer-events: none;
+                        z-index: 9999;
+                        transition: all ${2 + Math.random() * 2}s cubic-bezier(0.2, 0.8, 0.2, 1);
+                        opacity: 1;
+                    `;
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => {
+                        confetti.style.transform = `translateY(${80 + Math.random() * 60}vh) rotate(${Math.random() * 720}deg)`;
+                        confetti.style.opacity = '0';
+                    }, 50);
+
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000 + Math.random() * 2000);
+                }
+            }
+
+            // Inicializar juego al cargar la página (cuando se muestra la cascada)
+            // La primera vez se inicializa al abrir la cascada
+
+            // ============================================================
+            // 5. INICIALIZACIÓN
+            // ============================================================
             landing.classList.remove('hidden');
             cascadaView.classList.remove('active');
 
-            console.log('✅ SENA · Landing + Cascada (Junio 2026)');
+            // Activar primera pestaña por defecto en cascada
+            const defaultContent = cascadaView.querySelector('.tab-content');
+            if (defaultContent) defaultContent.classList.add('active');
+            const defaultBtn = cascadaView.querySelector('.tab-btn');
+            if (defaultBtn) defaultBtn.classList.add('active');
+
+            console.log('✅ SENA · Landing + Cascada + Juego (Junio 2026)');
             console.log('📌 Terminología institucional: instructor · aprendices · programa de formación · ambiente de aprendizaje · competencia · resultado de aprendizaje');
 
         })();

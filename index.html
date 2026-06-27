@@ -200,14 +200,11 @@
         }
         .podcast-player {
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             margin: 0.3rem 0;
         }
         .podcast-player iframe {
-            width: 100%;
-            height: 120px;
             border-radius: 12px;
-            border: none;
         }
 
         /* ============================================================ */
@@ -220,7 +217,6 @@
             display: block;
         }
 
-        /* Botón volver */
         .btn-back {
             background: transparent;
             border: none;
@@ -862,19 +858,27 @@
                     </button>
                 </div>
 
-                <!-- Tarjeta 4: Podcast (con reproductor SoundCloud) -->
+                <!-- Tarjeta 4: Podcast (con reproductor SoundCloud visual) -->
                 <div class="card-download podcast-card">
                     <div class="icon podcast"><i class="fas fa-podcast"></i></div>
                     <h3>Podcast</h3>
                     <p>🎧 Desarrollo Curricular SENA</p>
                     <div class="podcast-player">
                         <iframe 
-                            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/XXXXXXX&color=%232e7d32&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"
-                            allow="autoplay">
+                            width="100%" 
+                            height="300" 
+                            scrolling="no" 
+                            frameborder="no" 
+                            allow="autoplay; encrypted-media" 
+                            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2348860907&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
                         </iframe>
+                        <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
+                            <a href="https://soundcloud.com/hector-fabio-hoyos-giraldo" title="HECTOR FABIO HOYOS" target="_blank" style="color: #cccccc; text-decoration: none;">HECTOR FABIO HOYOS</a> · 
+                            <a href="https://soundcloud.com/hector-fabio-hoyos-giraldo/podcast_desarrollo_curricular" title="Podcast_Desarrollo_Curricular" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast_Desarrollo_Curricular</a>
+                        </div>
                     </div>
                     <p style="font-size:0.7rem; color:#94a3b8;">Duración: ~45 min · Streaming gratuito</p>
-                    <button class="btn" onclick="window.open('https://soundcloud.com/hector-fabio-hoyos-giraldo/podcast_desarrollo_curricular?si=1647892f38de42119ce6a6ee666fac41&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing', '_blank')">
+                    <button class="btn" onclick="window.open('https://soundcloud.com/hector-fabio-hoyos-giraldo/podcast_desarrollo_curricular', '_blank')">
                         <i class="fas fa-external-link-alt"></i> Abrir en SoundCloud
                     </button>
                 </div>
@@ -901,8 +905,7 @@
         <!-- ============================================================ -->
         <div id="cascada-view">
             <button class="btn-back" onclick="mostrarLanding()">
-                <i class="fas fa-arrow-left"></i> Volver al menú
-            </button>
+                <i class="fas fa-arrow-left"></i> Volver al menú            </button>
 
             <!-- TABS -->
             <div class="tabs" role="tablist">
@@ -1582,7 +1585,6 @@
                 const firstTab = cascadaView.querySelector('.tab-btn');
                 if (firstTab) activateTab(firstTab.dataset.tab);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                // Iniciar el juego cuando se abre la cascada
                 setTimeout(iniciarJuego, 300);
             };
 
@@ -1599,7 +1601,6 @@
                     const tabId = this.dataset.tab;
                     if (tabId) {
                         activateTab(tabId);
-                        // Si es la pestaña del juego, inicializarlo
                         if (tabId === 'tab-juego') {
                             setTimeout(iniciarJuego, 100);
                         }
@@ -1650,7 +1651,6 @@
                 }
             };
 
-            // Cerrar modal al hacer clic fuera
             document.querySelectorAll('.modal-overlay').forEach(overlay => {
                 overlay.addEventListener('click', function(e) {
                     if (e.target === this) {
@@ -1660,7 +1660,6 @@
                 });
             });
 
-            // Cerrar modal con tecla ESC
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     document.querySelectorAll('.modal-overlay.active').forEach(modal => {
@@ -1673,7 +1672,6 @@
             // ============================================================
             // 4. JUEGO DRAG & DROP
             // ============================================================
-            // Datos del juego por categoría
             const datosJuego = {
                 principios: {
                     titulo: 'Principios Rectores',
@@ -1754,7 +1752,6 @@
 
                 juegoActual.categoria = clave;
                 juegoActual.categorias = data.categorias;
-                // Mezclar los items para que no estén ordenados
                 juegoActual.items = [...data.items];
                 for (let i = juegoActual.items.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -1774,7 +1771,6 @@
                 const data = datosJuego[juegoActual.categoria];
                 if (!data) return;
 
-                // Crear columnas
                 let html = '';
                 data.categorias.forEach(cat => {
                     html += `
@@ -1785,7 +1781,6 @@
                     `;
                 });
 
-                // Crear columna de items (mezclados)
                 html += `
                     <div class="game-column" style="border-color: #2e7d32; border-style: solid;">
                         <h4>📦 Elementos</h4>
@@ -1800,8 +1795,6 @@
                 `;
 
                 board.innerHTML = html;
-
-                // Configurar drag & drop
                 configurarDragDrop();
             }
 
@@ -1809,7 +1802,6 @@
                 const items = document.querySelectorAll('.game-item');
                 const dropZones = document.querySelectorAll('.drop-zone');
 
-                // Drag start
                 items.forEach(item => {
                     item.addEventListener('dragstart', function(e) {
                         if (this.classList.contains('correct')) {
@@ -1832,7 +1824,6 @@
                     });
                 });
 
-                // Drop zones
                 dropZones.forEach(zone => {
                     zone.addEventListener('dragover', function(e) {
                         e.preventDefault();
@@ -1856,20 +1847,16 @@
                         const esCorrecto = item.categoria === catDestino;
 
                         if (esCorrecto) {
-                            // Correcto: mover el item a la zona de destino
                             const itemElement = item.elemento;
                             itemElement.classList.remove('dragging');
                             itemElement.classList.add('correct');
                             itemElement.draggable = false;
 
-                            // Remover el item de su contenedor actual y agregarlo al drop zone
                             const nuevoItem = itemElement.cloneNode(true);
                             nuevoItem.draggable = false;
                             nuevoItem.classList.add('correct');
-                            // Limpiar event listeners viejos
                             this.appendChild(nuevoItem);
 
-                            // Remover el original
                             if (itemElement.parentNode) {
                                 itemElement.remove();
                             }
@@ -1881,16 +1868,13 @@
                             feedback.className = 'game-feedback success';
                             feedback.textContent = `✅ ¡Correcto! "${item.texto}" pertenece a "${catDestino}"`;
 
-                            // Verificar si completó
                             if (juegoActual.aciertos === juegoActual.total) {
                                 feedback.className = 'game-feedback complete';
                                 feedback.textContent = '🎉 ¡FELICIDADES! Has completado todas las asociaciones correctamente. ¡Dominas el tema!';
-                                // Reproducir efecto de celebración simple
                                 confettiEffect();
                             }
 
                         } else {
-                            // Incorrecto: animación de error
                             const itemElement = item.elemento;
                             itemElement.classList.add('incorrect');
                             setTimeout(() => {
@@ -1914,7 +1898,6 @@
                 }
             }
 
-            // Efecto confetti simple
             function confettiEffect() {
                 const colors = ['#2e7d32', '#1f6a3b', '#d4edda', '#ffd700', '#ff6b6b', '#4a9eff'];
                 for (let i = 0; i < 40; i++) {
@@ -1945,16 +1928,12 @@
                 }
             }
 
-            // Inicializar juego al cargar la página (cuando se muestra la cascada)
-            // La primera vez se inicializa al abrir la cascada
-
             // ============================================================
             // 5. INICIALIZACIÓN
             // ============================================================
             landing.classList.remove('hidden');
             cascadaView.classList.remove('active');
 
-            // Activar primera pestaña por defecto en cascada
             const defaultContent = cascadaView.querySelector('.tab-content');
             if (defaultContent) defaultContent.classList.add('active');
             const defaultBtn = cascadaView.querySelector('.tab-btn');
